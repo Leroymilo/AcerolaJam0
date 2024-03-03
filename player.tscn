@@ -3,14 +3,7 @@
 [ext_resource type="Script" path="res://Player.gd" id="1_aw8xg"]
 [ext_resource type="Texture2D" uid="uid://t7ikp2tkp4tx" path="res://icon.svg" id="2_opolh"]
 
-[node name="Player" type="Node2D"]
-script = ExtResource("1_aw8xg")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Player" type="Sprite2D"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_opolh")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-limit_top = 0
-limit_bottom = 0
-position_smoothing_enabled = true
+script = ExtResource("1_aw8xg")

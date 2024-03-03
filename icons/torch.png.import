@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3sbjf5ya2t1x"
-path="res://.godot/imported/chaos_counter.png-952fbbe843bde12aacf695a448eb667c.ctex"
+uid="uid://do55dqf6kkafx"
+path="res://.godot/imported/torch.png-4622991b0e84134ab155c1e946457c2c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://chaos_counter.png"
-dest_files=["res://.godot/imported/chaos_counter.png-952fbbe843bde12aacf695a448eb667c.ctex"]
+source_file="res://icons/torch.png"
+dest_files=["res://.godot/imported/torch.png-4622991b0e84134ab155c1e946457c2c.ctex"]
 
 [params]
 

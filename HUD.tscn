@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdk7e4ke6whje"]
+
+[ext_resource type="Script" path="res://HUD.gd" id="1_3bba0"]
+[ext_resource type="Texture2D" uid="uid://do55dqf6kkafx" path="res://icons/torch.png" id="1_6wbnk"]
+[ext_resource type="Texture2D" uid="uid://dvckkuecokfnm" path="res://icons/machete.png" id="2_nnckb"]
+[ext_resource type="Texture2D" uid="uid://cdnshg6qi133l" path="res://icons/ropes.png" id="3_pfwhp"]
+[ext_resource type="Texture2D" uid="uid://dekkgxbn2jmme" path="res://icons/numbers.png" id="4_0kkox"]
+
+[sub_resource type="Gradient" id="Gradient_apohb"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vr3sx"]
+gradient = SubResource("Gradient_apohb")
+height = 320
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_3bba0")
+
+[node name="HUD_background" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_vr3sx")
+centered = false
+
+[node name="Icons" type="Node2D" parent="."]
+
+[node name="Torch" type="Sprite2D" parent="Icons"]
+position = Vector2(32, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_6wbnk")
+centered = false
+
+[node name="Machete" type="Sprite2D" parent="Icons"]
+position = Vector2(32, 32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_nnckb")
+centered = false
+
+[node name="Ropes" type="Sprite2D" parent="Icons"]
+position = Vector2(32, 64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_pfwhp")
+centered = false
+
+[node name="Numbers" type="Node2D" parent="."]
+
+[node name="Torch" type="Sprite2D" parent="Numbers"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_0kkox")
+centered = false
+hframes = 10
+frame = 4
+
+[node name="Machete" type="Sprite2D" parent="Numbers"]
+position = Vector2(0, 32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_0kkox")
+centered = false
+hframes = 10
+frame = 4
+
+[node name="Ropes" type="Sprite2D" parent="Numbers"]
+position = Vector2(0, 64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_0kkox")
+centered = false
+hframes = 10
+frame = 4

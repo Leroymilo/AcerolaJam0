@@ -47,7 +47,7 @@ func generate_column():
 		var i: int = rng.randi_range(0, tile_types.size()-1)
 		var new_tile: Node2D = tile_types[tile_types_names[i]].instantiate()
 		var grid_pos = Vector2i(max_tile_x, y)
-		new_tile.grid_position = grid_pos
+		new_tile.set_grid_pos(grid_pos)
 		grid[grid_pos] = new_tile
 		$Tiles.add_child(new_tile)
 	
@@ -82,6 +82,22 @@ func show_tile(pos: Vector2i, vision: int):
 		show_tile(pos + d, vision)
 
 func on_player_move(new_pos: Vector2i):
+	
+	if 0 > new_pos.y or new_pos.y >= HEIGHT: return
+	
+	var tools: Array[String] = grid[new_pos].get_consumables()
+	
+	if tools.size() > 0:
+		var quantities: Dictionary = $HUD.ask_ressources(tools)
+		
+		var comp = func comp(t_a, t_b): return quantities[t_a] > quantities[t_b]
+		tools.sort_custom(comp)
+	
+		if not $HUD.use(tools[0]):
+			return
+	
+	$Player.set_grid_pos(new_pos)
+	
 	$Chaos.count_down()
 	
 	var chaos_pos = $Chaos.grid_pos
@@ -92,7 +108,7 @@ func on_player_move(new_pos: Vector2i):
 	while max_tile_x <= new_pos.x + WIDTH/2:
 		generate_column()
 	
-	var min_chaos_pos = new_pos.x - WIDTH/2
+	var min_chaos_pos = new_pos.x - WIDTH/2 + 1
 	if chaos_pos < min_chaos_pos:
 		$Chaos.set_grid_pos(min_chaos_pos)
 		chaos_pos = min_chaos_pos
