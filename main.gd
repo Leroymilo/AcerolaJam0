@@ -94,8 +94,6 @@ func show_tile(pos: Vector2i, vision: int):
 	if tile_explored.get(pos, 0) >= vision: return
 	if not grid.has(pos): return
 	
-	print(pos, vision)
-	
 	grid[pos].make_visible()
 	tile_explored[pos] = vision
 	
