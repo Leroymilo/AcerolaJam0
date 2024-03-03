@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://lbfi1xwbt0ny"]
+
+[ext_resource type="PackedScene" uid="uid://dsg7erv06nd8t" path="res://tiles/template_tile.tscn" id="1_kiwwa"]
+
+[sub_resource type="Gradient" id="Gradient_v3naf"]
+colors = PackedColorArray(0.243137, 0.541176, 0, 1, 0.329412, 0.729412, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ik4kp"]
+gradient = SubResource("Gradient_v3naf")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Tile" instance=ExtResource("1_kiwwa")]
+visibility_obstruction = 1
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("GradientTexture2D_ik4kp")

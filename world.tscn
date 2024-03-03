@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj1vggewb5yqo"]
+
+[ext_resource type="Script" path="res://World.gd" id="1_mxh8a"]
+[ext_resource type="PackedScene" uid="uid://d3l1t7uobg4ih" path="res://player.tscn" id="2_en4rj"]
+[ext_resource type="PackedScene" uid="uid://cx72nkkn4f84e" path="res://chaos.tscn" id="3_rcp8r"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_mxh8a")
+
+[node name="Tiles" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_en4rj")]
+position = Vector2(96, 160)
+
+[node name="Chaos" parent="." instance=ExtResource("3_rcp8r")]
+
+[connection signal="moved" from="Player" to="." method="on_player_move"]

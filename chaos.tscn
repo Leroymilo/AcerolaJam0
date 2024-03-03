@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx72nkkn4f84e"]
+
+[ext_resource type="Texture2D" uid="uid://dhaosn160t287" path="res://chaos.png" id="1_yb86c"]
+[ext_resource type="Script" path="res://chaos.gd" id="2_e3jfa"]
+[ext_resource type="Texture2D" uid="uid://d3sbjf5ya2t1x" path="res://chaos_counter.png" id="3_ente5"]
+
+[node name="Chaos" type="Sprite2D"]
+texture = ExtResource("1_yb86c")
+centered = false
+offset = Vector2(-448, 0)
+script = ExtResource("2_e3jfa")
+
+[node name="Counter" type="Sprite2D" parent="."]
+texture = ExtResource("3_ente5")
+centered = false
+offset = Vector2(0, 128)
+hframes = 3
+frame = 2
