@@ -23,12 +23,32 @@ func _ready():
 		if file_name == "":
 			#break the while loop when get_next() returns ""
 			break
-		elif !file_name.begins_with(".") and !file_name.ends_with(".import"):
+		elif !file_name.begins_with(".") and file_name.ends_with(".tscn"):
 			#if !file_name.ends_with(".import"):
 			var type_name = file_name.trim_suffix(".tscn")
 			tile_types_names.append(type_name)
 			tile_types[type_name] = load(path + "/" + file_name)
 	dir.list_dir_end()
+	
+	# non randomized terrain for the start :
+	
+	for y in range(HEIGHT):
+		grid[Vector2i(0, y)] = tile_types["jungle"].instantiate()
+		grid[Vector2i(1, y)] = tile_types["elf_village"].instantiate()
+		grid[Vector2i(3, y)] = tile_types["mountain"].instantiate()
+		grid[Vector2i(4, y)] = tile_types["mountain"].instantiate()
+	
+	grid[Vector2i(2, 0)] = tile_types["mountain"].instantiate()
+	grid[Vector2i(2, 1)] = tile_types["elf_village"].instantiate()
+	grid[Vector2i(2, 2)] = tile_types["elf_village"].instantiate()
+	grid[Vector2i(2, 3)] = tile_types["elf_village"].instantiate()
+	grid[Vector2i(2, 4)] = tile_types["mountain"].instantiate()
+	
+	for key in grid.keys():
+		grid[key].set_grid_pos(key)
+		$Tiles.add_child(grid[key])
+	
+	# grid initialization
 	
 	var p_pos = $Player.grid_pos
 	
@@ -44,9 +64,11 @@ func game_over():
 func generate_column():
 	
 	for y in range(HEIGHT):
+		var grid_pos = Vector2i(max_tile_x, y)
+		if grid.has(grid_pos): continue
+		
 		var i: int = rng.randi_range(0, tile_types.size()-1)
 		var new_tile: Node2D = tile_types[tile_types_names[i]].instantiate()
-		var grid_pos = Vector2i(max_tile_x, y)
 		new_tile.set_grid_pos(grid_pos)
 		grid[grid_pos] = new_tile
 		$Tiles.add_child(new_tile)
@@ -69,11 +91,13 @@ func clean_back_column():
 var tile_explored: Dictionary
 
 func show_tile(pos: Vector2i, vision: int):
-	if tile_explored.get(pos, false): return
+	if tile_explored.get(pos, 0) >= vision: return
 	if not grid.has(pos): return
 	
+	print(pos, vision)
+	
 	grid[pos].make_visible()
-	tile_explored[pos] = true
+	tile_explored[pos] = vision
 	
 	vision -= grid[pos].visibility_obstruction
 	if vision <= 0: return

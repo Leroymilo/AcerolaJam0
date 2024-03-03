@@ -12,6 +12,9 @@ const CONSUMABLES: Dictionary = {
 var grid_pos: Vector2i
 var visible_from_player: bool = false
 
+func _process(_delta):
+	$Fog.texture.noise.offset.z = float(Time.get_ticks_msec()) / 80
+
 func get_consumables() -> Array[String]:
 	var result: Array[String] = []
 	

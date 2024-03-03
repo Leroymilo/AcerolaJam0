@@ -1,17 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://lbfi1xwbt0ny"]
+[gd_scene load_steps=6 format=3 uid="uid://lbfi1xwbt0ny"]
 
 [ext_resource type="PackedScene" uid="uid://dsg7erv06nd8t" path="res://tiles/template_tile.tscn" id="1_kiwwa"]
 
-[sub_resource type="Gradient" id="Gradient_v3naf"]
-colors = PackedColorArray(0.243137, 0.541176, 0, 1, 0.329412, 0.729412, 0, 1)
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wnlf6"]
+load_path = "res://.godot/imported/forest.png-f67ae3551c936b3f143fbe2be17574a1.ctex"
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ik4kp"]
-gradient = SubResource("Gradient_v3naf")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
+[sub_resource type="Gradient" id="Gradient_wry14"]
+colors = PackedColorArray(0.264461, 0.210577, 0.130491, 1, 0.727371, 0.635715, 0.500568, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bc5cr"]
+resource_local_to_scene = true
+noise_type = 3
+domain_warp_amplitude = 15.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_octaves = 9
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uomuj"]
+resource_local_to_scene = true
+width = 64
+height = 64
+in_3d_space = true
+normalize = false
+color_ramp = SubResource("Gradient_wry14")
+noise = SubResource("FastNoiseLite_bc5cr")
 
 [node name="Tile" instance=ExtResource("1_kiwwa")]
 visibility_obstruction = 1
 
 [node name="Sprite2D" parent="." index="0"]
-texture = SubResource("GradientTexture2D_ik4kp")
+texture_filter = 1
+texture = SubResource("CompressedTexture2D_wnlf6")
+
+[node name="Fog" parent="." index="1"]
+texture = SubResource("NoiseTexture2D_uomuj")
