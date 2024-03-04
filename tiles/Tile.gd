@@ -1,7 +1,8 @@
 extends Node2D
 
 @export_flags("Torch", "Machete", "Ropes") var consumes = 0
-@export var visibility_obstruction: int
+@export var visibility_obstruction: int = 0
+@export var visibility: int = 0
 
 const CONSUMABLES: Dictionary = {
 	1: "Torch",

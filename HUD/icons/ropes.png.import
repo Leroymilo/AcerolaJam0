@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvckkuecokfnm"
-path="res://.godot/imported/machete.png-138729ca906296176f0e767c4c4a5ef4.ctex"
+uid="uid://cdnshg6qi133l"
+path="res://.godot/imported/ropes.png-7bd46e82816b15dfd9ac264b3985b2f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/machete.png"
-dest_files=["res://.godot/imported/machete.png-138729ca906296176f0e767c4c4a5ef4.ctex"]
+source_file="res://HUD/icons/ropes.png"
+dest_files=["res://.godot/imported/ropes.png-7bd46e82816b15dfd9ac264b3985b2f4.ctex"]
 
 [params]
 

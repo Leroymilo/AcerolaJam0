@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dekkgxbn2jmme"
-path="res://.godot/imported/numbers.png-5787c2701bf67ad0d0811e94e1f74f50.ctex"
+uid="uid://mlxi0gr5sb21"
+path="res://.godot/imported/dialog_arrow.png-a2c199f0ddf5296701b17b8522c9eaf4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/numbers.png"
-dest_files=["res://.godot/imported/numbers.png-5787c2701bf67ad0d0811e94e1f74f50.ctex"]
+source_file="res://HUD/icons/dialog_arrow.png"
+dest_files=["res://.godot/imported/dialog_arrow.png-a2c199f0ddf5296701b17b8522c9eaf4.ctex"]
 
 [params]
 

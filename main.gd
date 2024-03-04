@@ -10,6 +10,8 @@ var tile_types_names: Array[String]
 var grid: Dictionary
 var max_tile_x = 0
 var min_tile_x = 0
+var available_tools = {}
+var game_phase = 0
 
 func _ready():
 	
@@ -30,6 +32,25 @@ func _ready():
 			tile_types[type_name] = load(path + "/" + file_name)
 	dir.list_dir_end()
 	
+	reset()
+	$HUD.play_phase(game_phase)
+
+func advance_phase():
+	print("next phase")
+	game_phase += 1
+	
+	if game_phase%2 == 0:
+		$HUD.play_phase(game_phase)
+	
+	$Player.locked = not bool(game_phase%2)
+	print($Player.locked)
+
+func reset():
+	grid.clear()
+	for tile in $Tiles.get_children():
+		$Tiles.remove_child(tile)
+		tile.queue_free()
+	
 	# non randomized terrain for the start :
 	
 	for y in range(HEIGHT):
@@ -37,20 +58,19 @@ func _ready():
 		grid[Vector2i(1, y)] = tile_types["elf_village"].instantiate()
 		grid[Vector2i(3, y)] = tile_types["mountain"].instantiate()
 		grid[Vector2i(4, y)] = tile_types["mountain"].instantiate()
-	
 	grid[Vector2i(2, 0)] = tile_types["mountain"].instantiate()
-	grid[Vector2i(2, 1)] = tile_types["elf_village"].instantiate()
-	grid[Vector2i(2, 2)] = tile_types["elf_village"].instantiate()
-	grid[Vector2i(2, 3)] = tile_types["elf_village"].instantiate()
-	grid[Vector2i(2, 4)] = tile_types["mountain"].instantiate()
+	for y in range(1, HEIGHT-1):
+		grid[Vector2i(2, y)] = tile_types["elf_village"].instantiate()
+	grid[Vector2i(2, HEIGHT-1)] = tile_types["mountain"].instantiate()
 	
 	for key in grid.keys():
 		grid[key].set_grid_pos(key)
 		$Tiles.add_child(grid[key])
 	
-	# grid initialization
+	# grid generation
 	
-	var p_pos = $Player.grid_pos
+	var p_pos = Vector2i(1, 2)
+	$Player.set_grid_pos(p_pos)
 	
 	while max_tile_x <= p_pos.x + WIDTH/2:
 		generate_column()
@@ -58,6 +78,13 @@ func _ready():
 	tile_explored.clear()
 	show_tile(p_pos, 6)
 	
+	available_tools = {
+		"Torch": 4,
+		"Machete": 4,
+		"Ropes": 0
+	}
+	$HUD.set_tools(available_tools)
+
 func game_over():
 	get_tree().quit()
 
@@ -110,12 +137,11 @@ func on_player_move(new_pos: Vector2i):
 	var tools: Array[String] = grid[new_pos].get_consumables()
 	
 	if tools.size() > 0:
-		var quantities: Dictionary = $HUD.ask_ressources(tools)
-		
-		var comp = func comp(t_a, t_b): return quantities[t_a] > quantities[t_b]
+		var comp = func comp(t_a, t_b):
+			return available_tools[t_a] > available_tools[t_b]
 		tools.sort_custom(comp)
 	
-		if not $HUD.use(tools[0]):
+		if not $HUD.use_tool(tools[0]):
 			return
 	
 	$Player.set_grid_pos(new_pos)
@@ -140,4 +166,3 @@ func on_player_move(new_pos: Vector2i):
 	
 	tile_explored.clear()
 	show_tile(new_pos, 6)
-
