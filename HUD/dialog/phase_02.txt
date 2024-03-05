@@ -1,0 +1,6 @@
+elf_neutral : I got through the caves! There's a small village here, maybe I should rest and prepare for my journey.
+elf_neutral : According to elves in this village, this part of the continent is home to a huge jungle forest.
+elf_neutral : I'll try to get a machete and learn how to take care of it to get through the jungle.
+help : Walking into a Jungle tile will consume 1 Machete charge.
+help : When you're in a normal forest, you can rest to take care of your tools and restore charges with "C" or "Space".
+help : However, the Chaos will not wait for you, so be careful about it catching up to you!

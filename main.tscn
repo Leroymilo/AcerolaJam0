@@ -22,5 +22,7 @@ position_smoothing_enabled = true
 
 [node name="HUD" parent="." instance=ExtResource("4_r7j1v")]
 
+[connection signal="try_craft" from="Player" to="." method="on_start_craft"]
 [connection signal="try_move" from="Player" to="." method="on_player_move"]
+[connection signal="finished_craft" from="HUD" to="." method="on_end_craft"]
 [connection signal="finished_dialog" from="HUD" to="." method="advance_phase"]

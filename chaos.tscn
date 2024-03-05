@@ -1,7 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://cx72nkkn4f84e"]
+[gd_scene load_steps=9 format=3 uid="uid://cx72nkkn4f84e"]
 
 [ext_resource type="Texture2D" uid="uid://dhaosn160t287" path="res://chaos.png" id="1_yb86c"]
 [ext_resource type="Script" path="res://chaos.gd" id="2_e3jfa"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ui5d1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0, 160, 0)
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(-1, 0, 0)
+spread = 15.0
+initial_velocity_min = 16.0
+initial_velocity_max = 32.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_47l78"]
+interpolation_mode = 1
+colors = PackedColorArray(0.223529, 0.0313726, 0.254902, 1, 0.223529, 0.0313726, 0.254902, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2st88"]
+gradient = SubResource("Gradient_47l78")
+width = 2
+height = 2
+
+[sub_resource type="Gradient" id="Gradient_04nrl"]
+interpolation_mode = 1
+colors = PackedColorArray(0.780392, 0.345098, 0.854902, 1, 0.780392, 0.345098, 0.854902, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fl17b"]
+gradient = SubResource("Gradient_04nrl")
+width = 2
+height = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_v4xby"]
 font_size = 45
@@ -11,6 +41,22 @@ texture = ExtResource("1_yb86c")
 centered = false
 offset = Vector2(-448, 0)
 script = ExtResource("2_e3jfa")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(64, 160)
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_ui5d1")
+texture = SubResource("GradientTexture2D_2st88")
+lifetime = 10.0
+preprocess = 10.0
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(64, 160)
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_ui5d1")
+texture = SubResource("GradientTexture2D_fl17b")
+lifetime = 10.0
+preprocess = 10.0
 
 [node name="Counter" type="Label" parent="."]
 custom_minimum_size = Vector2(64, 64)

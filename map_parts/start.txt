@@ -1,6 +1,6 @@
 0
-jungle	elf_village	mountain	mountain	forest		forest
-jungle	elf_village	elf_village	mountain	mountain	forest
-jungle	elf_village	elf_village	mountain	mountain	forest
-jungle	elf_village	elf_village	mountain	mountain	forest
-jungle	elf_village	mountain	mountain	forest		forest
+jungle	elf_village	peak			peak			peak			forest			forest		forest
+jungle	elf_village	elf_village		peak			peak			peak			forest		forest
+jungle	elf_village	elf_village		mountain_cave	mountain_cave	peak			forest		forest
+jungle	elf_village	elf_village		peak			mountain_cave	mountain_cave	elf_village	forest
+jungle	elf_village	peak			peak			peak			peak			forest		forest

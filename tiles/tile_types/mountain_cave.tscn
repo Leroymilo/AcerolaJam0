@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bvhkyulud7gx"]
+
+[ext_resource type="PackedScene" uid="uid://dsg7erv06nd8t" path="res://tiles/template_tile.tscn" id="1_1fpiv"]
+[ext_resource type="Texture2D" uid="uid://b53he2niw30ce" path="res://tiles/tile_types/mountain_cave.png" id="2_jetah"]
+
+[sub_resource type="Gradient" id="Gradient_wry14"]
+colors = PackedColorArray(0.264461, 0.210577, 0.130491, 1, 0.727371, 0.635715, 0.500568, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ldt7k"]
+resource_local_to_scene = true
+noise_type = 3
+domain_warp_amplitude = 15.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_octaves = 9
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_enfu6"]
+resource_local_to_scene = true
+width = 64
+height = 64
+in_3d_space = true
+normalize = false
+color_ramp = SubResource("Gradient_wry14")
+noise = SubResource("FastNoiseLite_ldt7k")
+
+[node name="Tile" instance=ExtResource("1_1fpiv")]
+type_name = "mountain_cave"
+visibility_obstruction = 5
+visibilities = {
+"Ropes": 8,
+"Torch": 1
+}
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_jetah")
+
+[node name="Fog" parent="." index="1"]
+texture = SubResource("NoiseTexture2D_enfu6")

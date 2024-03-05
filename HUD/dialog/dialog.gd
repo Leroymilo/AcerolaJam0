@@ -75,7 +75,7 @@ func end_dialog():
 
 func _input(_event):
 	if playing_dialog:
-		if Input.is_action_just_pressed("ui_accept"):
+		if Input.is_action_just_pressed("scroll_text"):
 			if text_scrolling:
 				end_text_scroll()
 			else:

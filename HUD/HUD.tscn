@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cdk7e4ke6whje"]
+[gd_scene load_steps=19 format=3 uid="uid://cdk7e4ke6whje"]
 
 [ext_resource type="Script" path="res://HUD/HUD.gd" id="1_3bba0"]
 [ext_resource type="Texture2D" uid="uid://do55dqf6kkafx" path="res://HUD/icons/torch.png" id="1_6wbnk"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://cnkvahk3hgb23" path="res://HUD/faces/elf_neutral.png" id="5_s8hn7"]
 [ext_resource type="Texture2D" uid="uid://da0q6c7u5d7d8" path="res://HUD/dialog/dialog_background.png" id="6_f6r1p"]
 [ext_resource type="Texture2D" uid="uid://mlxi0gr5sb21" path="res://HUD/icons/dialog_arrow.png" id="7_o01uu"]
+[ext_resource type="Texture2D" uid="uid://sl5erq2tgrg6" path="res://HUD/craft/background.png" id="9_agu38"]
+[ext_resource type="Script" path="res://HUD/craft/craft.gd" id="9_sgsyb"]
 
 [sub_resource type="Gradient" id="Gradient_apohb"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -55,12 +57,14 @@ texture = ExtResource("1_6wbnk")
 centered = false
 
 [node name="Machete" type="Sprite2D" parent="Icons"]
+visible = false
 position = Vector2(32, 32)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_nnckb")
 centered = false
 
 [node name="Ropes" type="Sprite2D" parent="Icons"]
+visible = false
 position = Vector2(32, 64)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_pfwhp")
@@ -77,6 +81,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Machete" type="Label" parent="Numbers"]
+visible = false
 custom_minimum_size = Vector2(64, 64)
 offset_top = 32.0
 offset_bottom = 32.0
@@ -87,6 +92,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Ropes" type="Label" parent="Numbers"]
+visible = false
 custom_minimum_size = Vector2(64, 64)
 offset_top = 64.0
 offset_bottom = 64.0
@@ -137,5 +143,36 @@ scale = Vector2(0.063, 0.063)
 texture = ExtResource("7_o01uu")
 centered = false
 
+[node name="Craft" type="Node2D" parent="."]
+visible = false
+position = Vector2(320, 160)
+script = ExtResource("9_sgsyb")
+
+[node name="Sprite2D" type="Sprite2D" parent="Craft"]
+modulate = Color(1, 1, 1, 0.494118)
+texture_filter = 1
+texture = ExtResource("9_agu38")
+
+[node name="ItemList" type="ItemList" parent="Craft"]
+custom_minimum_size = Vector2(310, 150)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+item_count = 1
+icon_scale = 0.5
+item_0/text = "Torch x 2"
+item_0/icon = ExtResource("1_6wbnk")
+
 [connection signal="finished_dialog" from="Dialog" to="." method="_on_dialog_finished_dialog"]
 [connection signal="timeout" from="Dialog/TextTimer" to="Dialog" method="scroll_text"]
+[connection signal="finished_crafting" from="Craft" to="." method="_on_craft_finished_crafting"]
+[connection signal="item_selected" from="Craft/ItemList" to="Craft" method="_on_item_list_item_selected"]
