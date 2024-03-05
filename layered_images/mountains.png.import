@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dekkgxbn2jmme"
-path="res://.godot/imported/numbers.png-856a26362af827e1d8343b1a7fbe28c3.ctex"
+uid="uid://d0xurrgcsxqja"
+path="res://.godot/imported/mountains.png-9fa24bfd35a52e7152abf4b5d848cc9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://HUD/numbers.png"
-dest_files=["res://.godot/imported/numbers.png-856a26362af827e1d8343b1a7fbe28c3.ctex"]
+source_file="res://layered_images/mountains.png"
+dest_files=["res://.godot/imported/mountains.png-9fa24bfd35a52e7152abf4b5d848cc9c.ctex"]
 
 [params]
 
