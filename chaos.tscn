@@ -42,7 +42,7 @@ centered = false
 offset = Vector2(-448, 0)
 script = ExtResource("2_e3jfa")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D1" type="GPUParticles2D" parent="."]
 position = Vector2(64, 160)
 amount = 128
 process_material = SubResource("ParticleProcessMaterial_ui5d1")

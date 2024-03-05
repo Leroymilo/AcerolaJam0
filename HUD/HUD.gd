@@ -20,9 +20,9 @@ func _ready():
 	}
 
 func reset():
-	for name in ICONS.keys():
-		ICONS[name].visible = false
-		NUMBERS[name].visible = false
+	for tool_name in ICONS.keys():
+		ICONS[tool_name].visible = false
+		NUMBERS[tool_name].visible = false
 	ICONS["Torch"].visible = true
 	NUMBERS["Torch"].visible = true
 	$Craft.reset()
