@@ -1,0 +1,6 @@
+0
+jungle	elf_village	mountain	mountain	forest		forest
+jungle	elf_village	elf_village	mountain	mountain	forest
+jungle	elf_village	elf_village	mountain	mountain	forest
+jungle	elf_village	elf_village	mountain	mountain	forest
+jungle	elf_village	mountain	mountain	forest		forest

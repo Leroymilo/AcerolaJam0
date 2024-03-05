@@ -23,10 +23,8 @@ func _ready():
 	while true:
 		var file_name = dir.get_next()
 		if file_name == "":
-			#break the while loop when get_next() returns ""
 			break
 		elif !file_name.begins_with(".") and file_name.ends_with(".tscn"):
-			#if !file_name.ends_with(".import"):
 			var type_name = file_name.trim_suffix(".tscn")
 			tile_types_names.append(type_name)
 			tile_types[type_name] = load(path + "/" + file_name)
@@ -51,21 +49,19 @@ func reset():
 		$Tiles.remove_child(tile)
 		tile.queue_free()
 	
-	# non randomized terrain for the start :
+	# reading prepared terrain :
 	
-	for y in range(HEIGHT):
-		grid[Vector2i(0, y)] = tile_types["jungle"].instantiate()
-		grid[Vector2i(1, y)] = tile_types["elf_village"].instantiate()
-		grid[Vector2i(3, y)] = tile_types["mountain"].instantiate()
-		grid[Vector2i(4, y)] = tile_types["mountain"].instantiate()
-	grid[Vector2i(2, 0)] = tile_types["mountain"].instantiate()
-	for y in range(1, HEIGHT-1):
-		grid[Vector2i(2, y)] = tile_types["elf_village"].instantiate()
-	grid[Vector2i(2, HEIGHT-1)] = tile_types["mountain"].instantiate()
-	
-	for key in grid.keys():
-		grid[key].set_grid_pos(key)
-		$Tiles.add_child(grid[key])
+	var path = "res://map_parts"
+	var dir = DirAccess.open(path)
+	dir.list_dir_begin()
+	while true:
+		var file_name = dir.get_next()
+		if file_name == "":
+			break
+		elif !file_name.begins_with(".") and file_name.ends_with(".txt"):
+			var file = FileAccess.open(path + "/" + file_name, FileAccess.READ)
+			load_map_part( file.get_as_text() )
+	dir.list_dir_end()
 	
 	# grid generation
 	
@@ -84,6 +80,20 @@ func reset():
 		"Ropes": 0
 	}
 	$HUD.set_tools(available_tools)
+
+func load_map_part(map_part: String):
+	var lines = map_part.split('\n', false)
+	var x0 = int(lines[0])
+	
+	for y in range(0, HEIGHT):
+		var line = lines[y+1].split('\t', false)
+		for i in range(line.size()):
+			if tile_types.has(line[i]):
+				var tile = tile_types[line[i]].instantiate()
+				var pos = Vector2i(x0+i, y)
+				grid[pos] = tile
+				tile.set_grid_pos(pos)
+				$Tiles.add_child(tile)
 
 func game_over():
 	get_tree().quit()
