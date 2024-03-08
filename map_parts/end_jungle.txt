@@ -1,0 +1,6 @@
+45
+forest	peak	peak			peak		elf_village	forest		forest	mountain_cave	rift			
+forest	forest	mountain_cave	elf_village	elf_village	elf_village	forest	mountain_cave	rift			
+forest	forest	mountain_cave	rift		elf_village	elf_village	forest	rift			rift			
+forest	forest	mountain_cave	rift		elf_village	elf_village	forest	rift			mountain_cave	
+forest	peak	peak			peak		elf_village	forest		forest	mountain_cave	mountain_cave	

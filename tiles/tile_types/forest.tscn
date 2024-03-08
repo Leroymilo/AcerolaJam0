@@ -25,11 +25,10 @@ color_ramp = SubResource("Gradient_wry14")
 noise = SubResource("FastNoiseLite_bc5cr")
 
 [node name="Tile" instance=ExtResource("1_kiwwa")]
-type_name = "forest"
+type = 1
+tools = 1
 visibility_obstruction = 1
-visibilities = {
-"Free": 6
-}
+visibility = 5
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("CompressedTexture2D_wnlf6")

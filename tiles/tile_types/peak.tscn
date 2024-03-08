@@ -23,12 +23,11 @@ color_ramp = SubResource("Gradient_wry14")
 noise = SubResource("FastNoiseLite_hglwm")
 
 [node name="Tile" instance=ExtResource("1_3uhsj")]
-type_name = "peak"
+type = 4
 visibility_obstruction = 10
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_e0wsv")
 
 [node name="Fog" parent="." index="1"]
-visible = false
 texture = SubResource("NoiseTexture2D_2hl3v")

@@ -1,0 +1,7 @@
+elf_neutral : I got past this thick Jungle, I can breath a little in this town...
+elf_neutral : But according to the locals, the next stretch of land is very rocky. Unfortunately, I can't stop.
+elf_neutral : I heard that there are a lot of rifts and cavernous mountains.
+elf_neutral : I'll need ropes to cross the rifts, I'll also be able to climb mountains to see farther instead of going through caves.
+help : Walking into a Rift tile will consume 1 set of Ropes, but it will make this tile freely traversable.
+help : Now, Mountain Caves can be climbed instead of traversed through caves, giving you more visibility.
+help : The Ropes used to climb a Mountain will stay, making it freely traversable as well.

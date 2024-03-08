@@ -4,50 +4,48 @@ var ICONS: Dictionary
 var NUMBERS: Dictionary
 
 signal finished_dialog
-signal finished_craft(tool_name: String)
+signal finished_craft(tool: Globals.TOOL)
+signal chose(tool: Globals.TOOL, new_tile: Vector2i)
 
 func _ready():
 	ICONS = {
-		"Torch": $Icons/Torch,
-		"Machete": $Icons/Machete,
-		"Ropes": $Icons/Ropes
+		Globals.TOOL.Torch: $Icons/Torch,
+		Globals.TOOL.Machete: $Icons/Machete,
+		Globals.TOOL.Ropes: $Icons/Ropes
 	}
 	
 	NUMBERS = {
-		"Torch": $Numbers/Torch,
-		"Machete": $Numbers/Machete,
-		"Ropes": $Numbers/Ropes
+		Globals.TOOL.Torch: $Numbers/Torch,
+		Globals.TOOL.Machete: $Numbers/Machete,
+		Globals.TOOL.Ropes: $Numbers/Ropes
 	}
 
 func reset():
 	for tool_name in ICONS.keys():
 		ICONS[tool_name].visible = false
 		NUMBERS[tool_name].visible = false
-	ICONS["Torch"].visible = true
-	NUMBERS["Torch"].visible = true
+	ICONS[Globals.TOOL.Torch].visible = true
+	NUMBERS[Globals.TOOL.Torch].visible = true
 	$Craft.reset()
 
-func enable_tool(tool_name: String):
-	ICONS[tool_name].visible = true
-	NUMBERS[tool_name].visible = true
-	$Craft.enable_tool(tool_name, ICONS[tool_name].texture)
+func enable_tool(tool: Globals.TOOL):
+	ICONS[tool].visible = true
+	NUMBERS[tool].visible = true
+	$Craft.enable_tool(tool, ICONS[tool].texture)
 
 func set_tools(tools: Dictionary):
 	for key in tools.keys():
-		if key == "Free": continue
+		if key == Globals.TOOL.Free: continue
 		NUMBERS[key].text = str(tools[key])
 
-func ask_ressources(names: Array[String]) -> Dictionary:
-	var result = {}
-	for item_name in names:
-		result[item_name] = NUMBERS[item_name].frame
-	return result
-
-func set_tool(item_name: String, qty: int):
-	NUMBERS[item_name].text = str(qty)
+func set_tool(tool: Globals.TOOL, qty: int):
+	NUMBERS[tool].text = str(qty)
 
 func _on_dialog_finished_dialog():
 	finished_dialog.emit()
 
-func _on_craft_finished_crafting(tool_name):
-	finished_craft.emit(tool_name)
+func _on_craft_finished_crafting(tool: Globals.TOOL):
+	finished_craft.emit(tool)
+
+func _on_use_chose(tool, pos):
+	chose.emit(tool, pos)

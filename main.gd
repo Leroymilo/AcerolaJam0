@@ -4,56 +4,35 @@ const HEIGHT: int = 5
 const WIDTH: int = 8
 
 var rng = RandomNumberGenerator.new()
-var tile_types: Dictionary
-var tile_types_names: Array[String]
 
 var grid: Dictionary
 var max_tile_x = 0
 var min_tile_x = 0
-var tools
+var tools: Dictionary
 var game_phase
 
 # Triggers to change phase.
 # Make sure that the player is forced to go through them
-var triggers: Array[Vector2i] = [
-	Vector2i(6, 3)
-]
+var triggers: Array[Vector2i]
 
 # Tile pools for procedural generation with weights
 var pools: Array[Dictionary] = [
 	{
-		"forest": 1
+		Globals.TILE_TYPE.forest: 8,
+		Globals.TILE_TYPE.jungle: 4
 	},
 	{
-		"forest": 8,
-		"jungle": 5
+		Globals.TILE_TYPE.forest: 5,
+		Globals.TILE_TYPE.jungle: 9
 	},
 	{
-		"forest": 1
+		Globals.TILE_TYPE.forest: 3,
+		Globals.TILE_TYPE.mountain_cave: 4,
+		Globals.TILE_TYPE.rift: 4,
 	},
-	{
-		"forest": 7,
-		"jungle": 9
-	}
 ]
 
 func _ready():
-	
-	# loading tile types
-	
-	var path = "res://tiles/tile_types"
-	var dir = DirAccess.open(path)
-	dir.list_dir_begin()
-	while true:
-		var file_name = dir.get_next()
-		if file_name == "":
-			break
-		elif !file_name.begins_with(".") and file_name.ends_with(".tscn"):
-			var type_name = file_name.trim_suffix(".tscn")
-			tile_types_names.append(type_name)
-			tile_types[type_name] = load(path + "/" + file_name)
-	dir.list_dir_end()
-	
 	reset()
 
 func reset():
@@ -90,12 +69,17 @@ func reset():
 	show_tile(p_pos, 6)
 	
 	tools = {
-		"Free": INF,
-		"Torch": 4,
-		"Machete": 0,
-		"Ropes": 0
+		Globals.TOOL.Free: INF,
+		Globals.TOOL.Torch: 4,
+		Globals.TOOL.Machete: 0,
+		Globals.TOOL.Ropes: 0
 	}
 	$HUD.set_tools(tools)
+	
+	triggers = [
+		Vector2i(6, 3),
+		Vector2i(48, 1)
+	]
 	
 	game_phase = -1
 	advance_phase()
@@ -109,9 +93,14 @@ func advance_phase():
 	$Player.locked = not bool(game_phase%2)
 	
 	if game_phase == 2:
-		tools["Machete"] += 5
-		$HUD.enable_tool("Machete")
-		$HUD.set_tool("Machete", tools["Machete"])
+		tools[Globals.TOOL.Machete] += 5
+		$HUD.enable_tool(Globals.TOOL.Machete)
+		$HUD.set_tool(Globals.TOOL.Machete, tools[Globals.TOOL.Machete])
+	
+	if game_phase == 4:
+		tools[Globals.TOOL.Ropes] += 6
+		$HUD.enable_tool(Globals.TOOL.Ropes)
+		$HUD.set_tool(Globals.TOOL.Ropes, tools[Globals.TOOL.Ropes])
 
 func load_map_part(map_part: String):
 	var lines = map_part.split('\n', false)
@@ -120,8 +109,9 @@ func load_map_part(map_part: String):
 	for y in range(0, HEIGHT):
 		var line = lines[y+1].split('\t', false)
 		for i in range(line.size()):
-			if tile_types.has(line[i]):
-				var tile = tile_types[line[i]].instantiate()
+			if Globals.TILE_TYPE.has(line[i]):
+				var tile_type: Globals.TILE_TYPE = Globals.TILE_TYPE[line[i]]
+				var tile = Globals.TILES_SCENES[tile_type].instantiate()
 				var pos = Vector2i(x0+i, y)
 				grid[pos] = tile
 				tile.set_grid_pos(pos)
@@ -132,7 +122,7 @@ func game_over():
 
 func generate_column():
 	
-	var pool = pools[game_phase]
+	var pool = pools[game_phase/2]
 	var cum_weights = [0]
 	var values = pool.keys()
 	for key in values:
@@ -148,7 +138,7 @@ func generate_column():
 		while cum_weights[i] < f:
 			i += 1
 		
-		var new_tile: Node2D = tile_types[values[i]].instantiate()
+		var new_tile: Node2D = Globals.TILES_SCENES[values[i]].instantiate()
 		new_tile.set_grid_pos(grid_pos)
 		grid[grid_pos] = new_tile
 		$Tiles.add_child(new_tile)
@@ -187,21 +177,33 @@ func on_player_move(new_pos: Vector2i):
 	
 	if 0 > new_pos.y or new_pos.y >= HEIGHT: return
 	
-	var pos_tools: Array[String] = grid[new_pos].get_consumables()
-	var tool: String
+	var pos_tools: Array[Globals.TOOL] = grid[new_pos].tool_list.duplicate()	
 	
-	if pos_tools.size() > 0:
-		var comp = func comp(t_a, t_b):
-			return tools[t_a] > tools[t_b]
-		pos_tools.sort_custom(comp)
-		tool = pos_tools[0]
-	
+	for tool in pos_tools:
 		if tools[tool] <= 0:
-			return
-		if tool != "Free":
-			tools[tool] -= 1
-			$HUD.set_tool(tool, tools[tool])
-	else: return
+			pos_tools.erase(tool)
+	
+	if pos_tools.size() == 0:
+		return
+	if pos_tools.size() == 1:
+		apply_player_move(pos_tools[0], new_pos)
+	else:
+		$Player.locked = true
+		$HUD/Use.choose(pos_tools, new_pos)
+
+func apply_player_move(tool: Globals.TOOL, new_pos: Vector2i):
+	$Player.locked = false
+	
+	if tool == null or tools[tool] <= 0:
+		return
+	if tool != Globals.TOOL.Free:
+		tools[tool] -= 1
+		$HUD.set_tool(tool, tools[tool])
+	
+	var new_tile = grid[new_pos]
+	
+	new_tile.step_on(tool)
+	print(new_pos)
 	
 	$Player.set_grid_pos(new_pos)
 	$Chaos.count_down()
@@ -223,23 +225,24 @@ func on_player_move(new_pos: Vector2i):
 		clean_back_column()
 	
 	tile_explored.clear()
-	var start_vis = grid[new_pos].get_visibility(tool)
-	start_vis += grid[new_pos].visibility_obstruction
+	var start_vis = new_tile.visibility
+	start_vis += new_tile.visibility_obstruction
 	show_tile(new_pos, start_vis)
 	
 	if triggers.size() > 0 and triggers[0] == new_pos:
 		advance_phase()
 		triggers.pop_front()
 
+
 func on_start_craft():
-	if grid[$Player.grid_pos].type_name == "forest":
+	if grid[$Player.grid_pos].type == Globals.TILE_TYPE.forest:
 		$Player.locked = true
 		$HUD/Craft.start_craft()
 
-func on_end_craft(tool_name: String):
-	if tool_name != "null" and tools[tool_name] < 9:
-		tools[tool_name] = mini(9, tools[tool_name] + 2)
-		$HUD.set_tool(tool_name, tools[tool_name])
+func on_end_craft(tool: Globals.TOOL):
+	if tool != Globals.TOOL.Free and tools[tool] < 9:
+		tools[tool] = mini(9, tools[tool] + 2)
+		$HUD.set_tool(tool, tools[tool])
 		$Chaos.count_down()
 		$Chaos.count_down()
 	

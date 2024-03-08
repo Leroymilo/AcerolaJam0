@@ -23,11 +23,10 @@ color_ramp = SubResource("Gradient_wry14")
 noise = SubResource("FastNoiseLite_x3drh")
 
 [node name="Tile" instance=ExtResource("1_stipr")]
-type_name = "elf_village"
+type = 1
+tools = 1
 visibility_obstruction = 2
-visibilities = {
-"Free": 5
-}
+visibility = 5
 
 [node name="Sprite2D" parent="." index="0"]
 texture_filter = 1

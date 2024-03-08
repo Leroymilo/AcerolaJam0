@@ -23,11 +23,10 @@ color_ramp = SubResource("Gradient_wry14")
 noise = SubResource("FastNoiseLite_yrqg3")
 
 [node name="Tile" instance=ExtResource("1_p75qu")]
-type_name = "jungle"
+type = 2
+tools = 4
 visibility_obstruction = 3
-visibilities = {
-"Machete": 5
-}
+visibility = 4
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_oeu0l")

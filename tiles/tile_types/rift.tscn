@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsk1vh03mj4in"]
+
+[ext_resource type="PackedScene" uid="uid://dsg7erv06nd8t" path="res://tiles/template_tile.tscn" id="1_7at3s"]
+[ext_resource type="Script" path="res://tiles/tile_types/rift.gd" id="2_lgxik"]
+[ext_resource type="Texture2D" uid="uid://dalpnp0fkd45o" path="res://tiles/tile_types/rift.png" id="2_snc2w"]
+[ext_resource type="Texture2D" uid="uid://btgxkrclsvri1" path="res://tiles/tile_types/roped_rift.png" id="3_wac0g"]
+
+[sub_resource type="Gradient" id="Gradient_wry14"]
+colors = PackedColorArray(0.264461, 0.210577, 0.130491, 1, 0.727371, 0.635715, 0.500568, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ku8pj"]
+resource_local_to_scene = true
+noise_type = 3
+domain_warp_amplitude = 15.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_octaves = 9
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gkmth"]
+resource_local_to_scene = true
+width = 64
+height = 64
+in_3d_space = true
+normalize = false
+color_ramp = SubResource("Gradient_wry14")
+noise = SubResource("FastNoiseLite_ku8pj")
+
+[node name="Tile" instance=ExtResource("1_7at3s")]
+script = ExtResource("2_lgxik")
+type = 32
+tools = 8
+visibility = 3
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_snc2w")
+
+[node name="Fog" parent="." index="1"]
+texture = SubResource("NoiseTexture2D_gkmth")
+
+[node name="Ropes" type="Sprite2D" parent="." index="2"]
+visible = false
+texture = ExtResource("3_wac0g")
+centered = false
