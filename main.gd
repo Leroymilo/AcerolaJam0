@@ -11,6 +11,8 @@ var min_tile_x = 0
 var tools: Dictionary
 var game_phase
 
+var waiting_restart = false
+
 # Triggers to change phase.
 # Make sure that the player is forced to go through them
 var triggers: Array[Vector2i]
@@ -117,8 +119,18 @@ func load_map_part(map_part: String):
 				tile.set_grid_pos(pos)
 				$Tiles.add_child(tile)
 
-func game_over():
-	reset()
+func game_over(msg: String = "Game Over"):
+	$Player.locked = true
+	$HUD/GameOver/Label.text = msg
+	$HUD/GameOver.visible = true
+	waiting_restart = true
+
+func _input(_event):
+	if waiting_restart and Input.is_action_just_pressed("select"):
+		waiting_restart = false
+		$HUD/GameOver.visible = false
+		$Player.locked = false
+		reset()
 
 func generate_column():
 	
@@ -177,12 +189,12 @@ func on_player_move(new_pos: Vector2i):
 	
 	if 0 > new_pos.y or new_pos.y >= HEIGHT: return
 	
-	var pos_tools: Array[Globals.TOOL] = grid[new_pos].tool_list.duplicate()	
+	var pos_tools: Array[Globals.TOOL] = []	
 	
-	for tool in pos_tools:
-		if tools[tool] <= 0:
-			pos_tools.erase(tool)
-	
+	for tool in grid[new_pos].tool_list:
+		if tools[tool] > 0:
+			pos_tools.append(tool)
+
 	if pos_tools.size() == 0:
 		return
 	if pos_tools.size() == 1:
@@ -232,7 +244,26 @@ func apply_player_move(tool: Globals.TOOL, new_pos: Vector2i):
 	if triggers.size() > 0 and triggers[0] == new_pos:
 		advance_phase()
 		triggers.pop_front()
+	
+	check_softlock(new_pos)
 
+func check_softlock(pos: Vector2i):
+	for d in [Vector2i(0, -1), Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0)]:
+		var new_pos = pos + d
+		var pos_tools: Array[Globals.TOOL] = []
+		print(pos_tools)
+	
+		for tool in grid[new_pos].tool_list:
+			if tools[tool] > 0:
+				pos_tools.append(tool)
+
+		if pos_tools.size() > 0:
+			# at least a valid move
+			print(new_pos)
+			print(pos_tools)
+			return
+	
+	game_over("Soft Lock (no move)")
 
 func on_start_craft():
 	if grid[$Player.grid_pos].type == Globals.TILE_TYPE.forest:

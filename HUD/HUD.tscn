@@ -237,9 +237,36 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 20
 icon_scale = 0.5
 
+[node name="GameOver" type="Node2D" parent="."]
+visible = false
+
+[node name="Label" type="Label" parent="GameOver"]
+offset_left = 64.0
+offset_right = 576.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.658824, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 30
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Label2" type="Label" parent="GameOver"]
+offset_left = 64.0
+offset_top = 68.0
+offset_right = 576.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(1, 0.682353, 0.631373, 1)
+theme_override_colors/font_outline_color = Color(0.952941, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 18
+text = "Click or Press Enter to Restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="finished_dialog" from="Dialog" to="." method="_on_dialog_finished_dialog"]
 [connection signal="timeout" from="Dialog/TextTimer" to="Dialog" method="scroll_text"]
 [connection signal="finished_crafting" from="Craft" to="." method="_on_craft_finished_crafting"]
-[connection signal="item_selected" from="Craft/ItemList" to="Craft" method="_on_item_list_item_selected"]
 [connection signal="chose" from="Use" to="." method="_on_use_chose"]
-[connection signal="item_selected" from="Use/ItemList" to="Use" method="_on_item_list_item_selected"]

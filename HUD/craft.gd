@@ -12,18 +12,15 @@ func enable_tool(tool: Globals.TOOL, texture: Texture2D):
 
 func start_craft():
 	visible = true
+	$ItemList.grab_focus()
 
 func _input(_event):
 	if visible and Input.is_action_just_pressed("exit"):
 		visible = false
 		finished_crafting.emit(Globals.TOOL.Free)
-
-func _on_item_list_item_selected(index: int):
-	$ItemList.deselect_all()
-	
-	if not visible: return
-	
-	visible = false
-	var tool_name: String = $ItemList.get_item_text(index)
-	var tool = Globals.TOOL[tool_name.trim_suffix(" x 2")]
-	finished_crafting.emit(tool)
+	elif visible and Input.is_action_just_pressed("select"):
+		visible = false
+		var index = $ItemList.get_selected_items()[0]
+		var tool_name: String = $ItemList.get_item_text(index)
+		var tool = Globals.TOOL[tool_name.trim_suffix(" x 2")]
+		finished_crafting.emit(tool)
