@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw2bq17vy5avl"]
+
+[ext_resource type="AudioStream" uid="uid://cu3l8o5isgqcq" path="res://audio/testwav.wav" id="1_axanc"]
+
+[node name="Audio" type="AudioStreamPlayer"]
+stream = ExtResource("1_axanc")
+autoplay = true

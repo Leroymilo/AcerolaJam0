@@ -2,7 +2,7 @@ extends Sprite2D
 
 const MAX_COUNTER = 2
 var counter = MAX_COUNTER
-var grid_pos = 0
+var grid_pos = 3.5
 
 func _ready():
 	$Counter.text = str(counter)

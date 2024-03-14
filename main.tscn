@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dj1vggewb5yqo"]
+[gd_scene load_steps=6 format=3 uid="uid://dj1vggewb5yqo"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_mxh8a"]
 [ext_resource type="PackedScene" uid="uid://d3l1t7uobg4ih" path="res://player.tscn" id="2_en4rj"]
 [ext_resource type="PackedScene" uid="uid://cx72nkkn4f84e" path="res://chaos.tscn" id="3_rcp8r"]
 [ext_resource type="PackedScene" uid="uid://cdk7e4ke6whje" path="res://HUD/HUD.tscn" id="4_r7j1v"]
+[ext_resource type="PackedScene" uid="uid://dw2bq17vy5avl" path="res://audio/audio.tscn" id="5_gca6a"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_mxh8a")
@@ -21,6 +22,8 @@ position_smoothing_enabled = true
 [node name="Chaos" parent="." instance=ExtResource("3_rcp8r")]
 
 [node name="HUD" parent="." instance=ExtResource("4_r7j1v")]
+
+[node name="Audio" parent="." instance=ExtResource("5_gca6a")]
 
 [connection signal="try_craft" from="Player" to="." method="on_start_craft"]
 [connection signal="try_move" from="Player" to="." method="on_player_move"]

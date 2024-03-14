@@ -131,12 +131,11 @@ offset_right = 561.0
 offset_bottom = 59.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Hello I am an elf"
 label_settings = SubResource("LabelSettings_e7i60")
 autowrap_mode = 2
 
 [node name="TextTimer" type="Timer" parent="Dialog"]
-wait_time = 0.02
+wait_time = 0.1
 
 [node name="TextArrow" type="Sprite2D" parent="Dialog"]
 position = Vector2(560, 44)

@@ -1,0 +1,5 @@
+elf_neutral : I'm finally well equiped to advance, but I feel like the Pure Chaos aberration won't stop anytime soon...
+elf_neutral : I'll try to reach the coast of the continent, after that, who knows?
+elf_neutral : Maybe I'll have to learn how to navigate a boat to survive... I hope this is not the end of elves.
+help : You reached the end of the game as it is now, the rest is procedurally generated and nothing new will happen.
+help : Thanks for playing this far! I might work further on this game if I have time.

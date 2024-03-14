@@ -33,6 +33,10 @@ var pools: Array[Dictionary] = [
 		Globals.TILE_TYPE.rift: 4,
 	},
 ]
+var inf_pools: Array[Dictionary] = [
+	pools[1],
+	pools[2]
+]
 
 func _ready():
 	reset()
@@ -80,7 +84,8 @@ func reset():
 	
 	triggers = [
 		Vector2i(6, 3),
-		Vector2i(48, 1)
+		Vector2i(48, 1),
+		Vector2i(91, 2)
 	]
 	
 	game_phase = -1
@@ -131,10 +136,19 @@ func _input(_event):
 		$HUD/GameOver.visible = false
 		$Player.locked = false
 		reset()
+	
+	if Input.is_action_just_pressed("toggle_mute"):
+		$Audio.stream_paused = not $Audio.stream_paused
 
 func generate_column():
+	var pool: Dictionary
 	
-	var pool = pools[game_phase/2]
+	if game_phase < 6:
+		pool = pools[game_phase/2]
+	else:
+		var id = int(($Player.grid_pos.x - 90)/90)%(inf_pools.size())
+		pool = inf_pools[id]
+	
 	var cum_weights = [0]
 	var values = pool.keys()
 	for key in values:
@@ -206,7 +220,7 @@ func on_player_move(new_pos: Vector2i):
 func apply_player_move(tool: Globals.TOOL, new_pos: Vector2i):
 	$Player.locked = false
 	
-	if tool == null or tools[tool] <= 0:
+	if tool == Globals.TOOL.None or tools[tool] <= 0:
 		return
 	if tool != Globals.TOOL.Free:
 		tools[tool] -= 1
@@ -250,8 +264,9 @@ func apply_player_move(tool: Globals.TOOL, new_pos: Vector2i):
 func check_softlock(pos: Vector2i):
 	for d in [Vector2i(0, -1), Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0)]:
 		var new_pos = pos + d
+		if new_pos.y < 0 or new_pos.y >= HEIGHT: continue
+		
 		var pos_tools: Array[Globals.TOOL] = []
-		print(pos_tools)
 	
 		for tool in grid[new_pos].tool_list:
 			if tools[tool] > 0:
@@ -259,8 +274,6 @@ func check_softlock(pos: Vector2i):
 
 		if pos_tools.size() > 0:
 			# at least a valid move
-			print(new_pos)
-			print(pos_tools)
 			return
 	
 	game_over("Soft Lock (no move)")

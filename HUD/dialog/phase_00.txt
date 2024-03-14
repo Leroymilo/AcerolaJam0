@@ -5,3 +5,4 @@ elf_neutral : I must flee to survive, I have to head east, through the mountain 
 elf_neutral : I hope my torches will last long enough for me to cross the cave system...
 help : Use the arrow keys to move. Do not let the Pure Chaos catch up to you!
 help : Walking into a Mountain Cave tile will consume 1 Torch charge (shown on the left).
+help : Sorry for the "music", you can press M to toggle it.

@@ -1,0 +1,6 @@
+87
+mountain_cave	rift			peak	peak			peak		elf_village	forest		forest	jungle	forest
+mountain_cave	rift			rift	peak			elf_village	elf_village	elf_village	forest	jungle	jungle
+rift			forest			rift	mountain_cave	elf_village	elf_village	elf_village	forest	jungle	jungle
+rift			mountain_cave	rift	peak			rift		elf_village	elf_village	forest	jungle	forest
+mountain_cave	mountain_cave	peak	peak			peak		elf_village	forest		forest	jungle	jungle

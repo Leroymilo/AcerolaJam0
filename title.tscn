@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkrjo7tmh06be"]
+
+[ext_resource type="Texture2D" uid="uid://c1ps7f6rxq3my" path="res://tiles/tile_types/jungle.png" id="1_1fyps"]
+[ext_resource type="Texture2D" uid="uid://b4tgxs4mlq6ci" path="res://tiles/tile_types/elf_village.png" id="2_wola6"]
+[ext_resource type="Texture2D" uid="uid://bydtegtqnx5eb" path="res://tiles/tile_types/forest.png" id="3_7ye42"]
+[ext_resource type="PackedScene" uid="uid://cx72nkkn4f84e" path="res://chaos.tscn" id="4_vpp2k"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qc5af"]
+texture = ExtResource("1_1fyps")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wbkas"]
+texture = ExtResource("2_wola6")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hdsid"]
+texture = ExtResource("3_7ye42")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_k6ddn"]
+tile_size = Vector2i(64, 64)
+sources/2 = SubResource("TileSetAtlasSource_qc5af")
+sources/3 = SubResource("TileSetAtlasSource_wbkas")
+sources/4 = SubResource("TileSetAtlasSource_hdsid")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+texture_filter = 1
+tile_set = SubResource("TileSet_k6ddn")
+format = 2
+layer_0/tile_data = PackedInt32Array(65537, 4, 0, 131073, 4, 0, 196610, 4, 0, 196611, 2, 0, 262147, 4, 0, 262148, 4, 0, 0, 4, 0, 1, 4, 0, 2, 4, 0, 3, 2, 0, 4, 2, 0, 5, 2, 0, 6, 2, 0, 7, 4, 0, 8, 4, 0, 9, 4, 0, 65545, 3, 0, 131081, 3, 0, 196617, 3, 0, 262153, 4, 0, 327689, 4, 0, 393225, 4, 0, 458761, 4, 0, 458760, 3, 0, 458759, 3, 0, 458758, 2, 0, 458757, 2, 0, 458756, 2, 0, 458755, 2, 0, 458754, 2, 0, 458753, 2, 0, 458752, 2, 0, 393216, 2, 0, 327680, 4, 0, 262144, 4, 0, 196608, 4, 0, 131072, 4, 0, 65536, 4, 0, 65538, 2, 0, 196609, 4, 0, 262145, 4, 0, 327681, 2, 0, 393217, 2, 0, 393218, 2, 0, 327682, 2, 0, 262146, 4, 0, 131074, 2, 0, 65539, 2, 0, 131075, 2, 0, 327683, 2, 0, 393219, 2, 0, 327684, 4, 0, 393220, 2, 0, 196612, 2, 0, 131076, 2, 0, 65540, 2, 0, 65542, 4, 0, 65543, 4, 0, 65544, 3, 0, 65541, 2, 0, 131077, 2, 0, 196613, 4, 0, 196614, 3, 0, 131079, 3, 0, 131080, 3, 0, 196616, 3, 0, 131078, 4, 0, 262149, 4, 0, 262150, 3, 0, 262151, 3, 0, 196615, 3, 0, 327685, 4, 0, 393221, 2, 0, 393222, 3, 0, 393223, 3, 0, 393224, 3, 0, 327688, 3, 0, 262152, 3, 0, 327686, 3, 0, 327687, 3, 0)
+
+[node name="Chaos" parent="." instance=ExtResource("4_vpp2k")]
+position = Vector2(212, 0)
+
+[node name="Label" type="Label" parent="."]
+offset_right = 576.0
+offset_bottom = 384.0
+theme_override_colors/font_color = Color(0.992157, 0.968627, 1, 1)
+theme_override_colors/font_outline_color = Color(0.698039, 0.145098, 0.843137, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 60
+text = "Chaos Exodus
+ "
+horizontal_alignment = 1
+vertical_alignment = 1
