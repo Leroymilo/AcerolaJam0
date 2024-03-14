@@ -8,6 +8,8 @@ var line_index: int = 0
 var dialog_line: String = ""
 var char_index: int = 0
 
+var dialogs: Dictionary = {}
+
 signal finished_dialog
 
 func _ready():
@@ -19,17 +21,25 @@ func _ready():
 	dir.list_dir_begin()
 	while true:
 		var file_name = dir.get_next()
+		print(file_name)
 		if file_name == "":
 			break
-		elif !file_name.begins_with(".") and file_name.ends_with(".png"):
-			var face_name = file_name.trim_suffix(".png")
+		elif !file_name.begins_with(".") and file_name.ends_with(".png.import"):
+			var face_name = file_name.trim_suffix(".png.import")
 			FACES[face_name] = load(path + "/" + face_name + ".png")
 	dir.list_dir_end()
+	print(FACES)
+	
+	# loading text
+	for phase in [0, 2, 4, 6]:
+		var file_path = "res://HUD/dialog/phase_" + str(phase).lpad(2, "0") + ".txt"
+		#print(file_path)
+		var file = FileAccess.open(file_path, FileAccess.READ)
+		dialogs[phase] = file.get_as_text().split('\n', false)
+		#print(dialogs[phase])
 
 func start_dialog(phase: int):
-	var file_path = "res://HUD/dialog/phase_" + str(phase).lpad(2, "0") + ".txt"
-	var file = FileAccess.open(file_path, FileAccess.READ)
-	dialog = file.get_as_text().split('\n', false)
+	dialog = dialogs[phase]
 	line_index = -1
 	playing_dialog = true
 	visible = true

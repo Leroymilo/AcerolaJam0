@@ -19,8 +19,11 @@ func _input(_event):
 		visible = false
 		finished_crafting.emit(Globals.TOOL.Free)
 	elif visible and Input.is_action_just_pressed("select"):
-		visible = false
 		var index = $ItemList.get_selected_items()[0]
-		var tool_name: String = $ItemList.get_item_text(index)
-		var tool = Globals.TOOL[tool_name.trim_suffix(" x 2")]
-		finished_crafting.emit(tool)
+		choose(index)
+
+func choose(index, pos_=null, mouse_=null):
+	visible = false
+	var tool_name: String = $ItemList.get_item_text(index)
+	var tool = Globals.TOOL[tool_name.trim_suffix(" x 2")]
+	finished_crafting.emit(tool)

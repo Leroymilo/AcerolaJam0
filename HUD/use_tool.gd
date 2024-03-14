@@ -4,7 +4,7 @@ var pos: Vector2i
 
 signal chose(tool: Globals.TOOL, new_pos: Vector2i)
 
-func choose(tools: Array[Globals.TOOL], new_pos: Vector2i):
+func start_use(tools: Array[Globals.TOOL], new_pos: Vector2i):
 	$ItemList.clear()
 	for tool in tools:
 		var tool_name = Globals.TOOL.find_key(tool)
@@ -21,8 +21,12 @@ func _input(_event):
 		visible = false
 		chose.emit(Globals.TOOL.None, pos)
 	elif visible and Input.is_action_just_pressed("select"):
-		visible = false
 		var index = $ItemList.get_selected_items()[0]
-		var tool_name: String = $ItemList.get_item_text(index)
-		var tool = Globals.TOOL[tool_name]
-		chose.emit(tool, pos)
+		choose(index)
+
+func choose(index, pos_=null, mouse_=null):
+	visible = false
+	var tool_name: String = $ItemList.get_item_text(index)
+	var tool = Globals.TOOL[tool_name]
+	chose.emit(tool, pos)
+

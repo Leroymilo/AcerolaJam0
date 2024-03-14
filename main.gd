@@ -215,7 +215,7 @@ func on_player_move(new_pos: Vector2i):
 		apply_player_move(pos_tools[0], new_pos)
 	else:
 		$Player.locked = true
-		$HUD/Use.choose(pos_tools, new_pos)
+		$HUD/Use.start_use(pos_tools, new_pos)
 
 func apply_player_move(tool: Globals.TOOL, new_pos: Vector2i):
 	$Player.locked = false

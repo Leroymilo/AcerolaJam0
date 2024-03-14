@@ -135,7 +135,7 @@ label_settings = SubResource("LabelSettings_e7i60")
 autowrap_mode = 2
 
 [node name="TextTimer" type="Timer" parent="Dialog"]
-wait_time = 0.1
+wait_time = 0.05
 
 [node name="TextArrow" type="Sprite2D" parent="Dialog"]
 position = Vector2(560, 44)
@@ -268,4 +268,6 @@ vertical_alignment = 1
 [connection signal="finished_dialog" from="Dialog" to="." method="_on_dialog_finished_dialog"]
 [connection signal="timeout" from="Dialog/TextTimer" to="Dialog" method="scroll_text"]
 [connection signal="finished_crafting" from="Craft" to="." method="_on_craft_finished_crafting"]
+[connection signal="item_clicked" from="Craft/ItemList" to="Craft" method="choose"]
 [connection signal="chose" from="Use" to="." method="_on_use_chose"]
+[connection signal="item_clicked" from="Use/ItemList" to="Use" method="choose"]
