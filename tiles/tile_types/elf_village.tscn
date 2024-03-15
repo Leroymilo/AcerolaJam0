@@ -25,7 +25,7 @@ noise = SubResource("FastNoiseLite_x3drh")
 [node name="Tile" instance=ExtResource("1_stipr")]
 type = 2
 tools = 1
-visibility_obstruction = 2
+visibility_obstruction = 1
 visibility = 5
 
 [node name="Sprite2D" parent="." index="0"]

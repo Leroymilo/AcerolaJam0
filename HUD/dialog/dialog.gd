@@ -21,14 +21,12 @@ func _ready():
 	dir.list_dir_begin()
 	while true:
 		var file_name = dir.get_next()
-		print(file_name)
 		if file_name == "":
 			break
 		elif !file_name.begins_with(".") and file_name.ends_with(".png.import"):
 			var face_name = file_name.trim_suffix(".png.import")
 			FACES[face_name] = load(path + "/" + face_name + ".png")
 	dir.list_dir_end()
-	print(FACES)
 	
 	# loading text
 	for phase in [0, 2, 4, 6]:

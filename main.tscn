@@ -25,8 +25,13 @@ position_smoothing_enabled = true
 
 [node name="Audio" parent="." instance=ExtResource("5_gca6a")]
 
+[node name="ResetTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="try_craft" from="Player" to="." method="on_start_craft"]
 [connection signal="try_move" from="Player" to="." method="on_player_move"]
 [connection signal="chose" from="HUD" to="." method="apply_player_move"]
 [connection signal="finished_craft" from="HUD" to="." method="on_end_craft"]
 [connection signal="finished_dialog" from="HUD" to="." method="advance_phase"]
+[connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]

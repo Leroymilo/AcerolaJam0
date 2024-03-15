@@ -3,6 +3,8 @@ elf_neutral : As an Elf, a creature of Order and Regularity, I stand low chances
 elf_neutral : The Pure Chaos created from the God's victory is about to destroy the city I live in.
 elf_neutral : I must flee to survive, I have to head east, through the mountain range.
 elf_neutral : I hope my torches will last long enough for me to cross the cave system...
-help : Use the arrow keys to move. Do not let the Pure Chaos catch up to you!
+help : Use the arrow keys or WASD to move. Do not let the Pure Chaos catch up to you!
+help : The Pure Chaos will tick down every time you move, and advance every time it reaches 0.
+help : It will also be pushed by the screen scrolling.
 help : Walking into a Mountain Cave tile will consume 1 Torch charge (shown on the left).
 help : Sorry for the "music", you can press M to toggle it.

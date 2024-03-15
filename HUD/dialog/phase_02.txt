@@ -4,4 +4,4 @@ elf_neutral : I'll try to get a machete and learn how to take care of it to get 
 help : Walking into a Jungle tile will consume 1 Machete charge.
 help : When you're in a normal forest, you can rest to take care of your tools and restore charges with "C" or "Space".
 help : A tool can have at most 9 charges, any extra charges will be lost.
-help : However, the Chaos will not wait for you, so be careful about it catching up to you!
+help : However, the Chaos will not wait for you (crafting costs 2 turns), so be careful about it catching up to you!

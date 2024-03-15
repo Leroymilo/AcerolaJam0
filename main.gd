@@ -11,8 +11,6 @@ var min_tile_x = 0
 var tools: Dictionary
 var game_phase
 
-var waiting_restart = false
-
 # Triggers to change phase.
 # Make sure that the player is forced to go through them
 var triggers: Array[Vector2i]
@@ -80,6 +78,7 @@ func reset():
 		Globals.TOOL.Machete: 0,
 		Globals.TOOL.Ropes: 0
 	}
+	$HUD.reset()
 	$HUD.set_tools(tools)
 	
 	triggers = [
@@ -128,14 +127,12 @@ func game_over(msg: String = "Game Over"):
 	$Player.locked = true
 	$HUD/GameOver/Label.text = msg
 	$HUD/GameOver.visible = true
-	waiting_restart = true
 
 func _input(_event):
-	if waiting_restart and Input.is_action_just_pressed("select"):
-		waiting_restart = false
-		$HUD/GameOver.visible = false
-		$Player.locked = false
-		reset()
+	if Input.is_action_just_pressed("reset"):
+		$ResetTimer.start()
+	if Input.is_action_just_released("reset"):
+		$ResetTimer.stop()
 	
 	if Input.is_action_just_pressed("toggle_mute"):
 		$Audio.stream_paused = not $Audio.stream_paused
@@ -294,3 +291,10 @@ func on_end_craft(tool: Globals.TOOL):
 		game_over()
 	
 	$Player.locked = false
+
+
+func _on_reset_timer_timeout():
+	#if Input.is_action_pressed("reset"):
+	$HUD/GameOver.visible = false
+	$Player.locked = false
+	reset()
