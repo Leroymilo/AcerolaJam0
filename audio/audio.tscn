@@ -4,3 +4,4 @@
 
 [node name="Audio" type="AudioStreamPlayer"]
 stream = ExtResource("1_axanc")
+autoplay = true

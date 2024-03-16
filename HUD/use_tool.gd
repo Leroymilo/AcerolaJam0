@@ -25,7 +25,7 @@ func _input(_event):
 		choose(index)
 
 func choose(index, _pos=null, mouse=null):
-	if mouse != 1: return
+	if mouse != 1 and mouse != null: return
 	visible = false
 	var tool_name: String = $ItemList.get_item_text(index)
 	var tool = Globals.TOOL[tool_name]
